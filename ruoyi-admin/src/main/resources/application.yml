@@ -72,6 +72,13 @@ spring:
     restart:
       # 热部署开关
       enabled: true
+  # 数据源
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/competition_db?useSSL=false&serverTimezone=UTC
+    username: root
+    password: 13189240
+
 
 # MyBatis
 mybatis:
