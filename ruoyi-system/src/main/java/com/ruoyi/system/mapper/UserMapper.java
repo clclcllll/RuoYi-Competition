@@ -11,4 +11,6 @@ public interface UserMapper {
     int updateUser(User user);
     User selectUserById(Integer userId);
     List<User> selectAllUsers();
+
+    int selectTotalUsers();
 }
