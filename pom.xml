@@ -36,6 +36,7 @@
     <dependencyManagement>
         <dependencies>
 
+
             <!-- SpringFramework的依赖配置-->
             <dependency>
                 <groupId>org.springframework</groupId>
