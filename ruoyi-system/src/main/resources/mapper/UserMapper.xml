@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.UserMapper">
+
+    <select id="selectByUsername" resultType="com.ruoyi.system.domain.User">
+        SELECT * FROM users WHERE username = #{username}
+    </select>
+
+    <insert id="insertUser" parameterType="com.ruoyi.system.domain.User">
+        INSERT INTO users (username, password, role, name, contact_info)
+        VALUES (#{username}, #{password}, #{role}, #{name}, #{contactInfo})
+    </insert>
+
+    <update id="updateUser" parameterType="com.ruoyi.system.domain.User">
+        UPDATE users SET password = #{password}, role = #{role}, name = #{name}, contact_info = #{contactInfo}
+        WHERE user_id = #{userId}
+    </update>
+
+    <select id="selectUserById" resultType="com.ruoyi.system.domain.User">
+        SELECT * FROM users WHERE user_id = #{userId}
+    </select>
+
+    <select id="selectAllUsers" resultType="com.ruoyi.system.domain.User">
+        SELECT * FROM users
+    </select>
+
+</mapper>

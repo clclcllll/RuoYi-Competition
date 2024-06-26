@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SubmissionMapper">
+
+    <insert id="insertSubmission" parameterType="com.ruoyi.system.domain.Submission">
+        INSERT INTO submissions (submission_name, category, school, team, material_path, submission_date, user_id)
+        VALUES (#{submissionName}, #{category}, #{school}, #{team}, #{materialPath}, #{submissionDate}, #{userId})
+    </insert>
+
+    <select id="selectAllSubmissions" resultType="com.ruoyi.system.domain.Submission">
+        SELECT * FROM submissions
+    </select>
+
+    <select id="selectSubmissionsByUserId" resultType="com.ruoyi.system.domain.Submission">
+        SELECT * FROM submissions WHERE user_id = #{userId}
+    </select>
+
+</mapper>

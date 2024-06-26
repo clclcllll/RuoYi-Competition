@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.LogMapper">
+
+    <insert id="insertLog" parameterType="com.ruoyi.system.domain.Log">
+        INSERT INTO logs (user_id, operation, operation_date)
+        VALUES (#{userId}, #{operation}, #{operationDate})
+    </insert>
+
+    <select id="selectAllLogs" resultType="com.ruoyi.system.domain.Log">
+        SELECT * FROM logs
+    </select>
+
+    <select id="selectLogsByUserId" resultType="com.ruoyi.system.domain.Log">
+        SELECT * FROM logs WHERE user_id = #{userId}
+    </select>
+
+</mapper>

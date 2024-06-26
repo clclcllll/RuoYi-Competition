@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ReviewMapper">
+
+    <insert id="insertReview" parameterType="com.ruoyi.system.domain.Review">
+        INSERT INTO reviews (submission_id, expert_id, score, comment, review_date)
+        VALUES (#{submissionId}, #{expertId}, #{score}, #{comment}, #{reviewDate})
+    </insert>
+
+    <select id="selectAllReviews" resultType="com.ruoyi.system.domain.Review">
+        SELECT * FROM reviews
+    </select>
+
+    <select id="selectReviewsBySubmissionId" resultType="com.ruoyi.system.domain.Review">
+        SELECT * FROM reviews WHERE submission_id = #{submissionId}
+    </select>
+
+</mapper>
