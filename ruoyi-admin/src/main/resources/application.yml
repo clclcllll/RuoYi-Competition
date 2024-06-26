@@ -30,7 +30,7 @@ server:
       max: 800
       # Tomcat启动初始化的线程数，默认值10
       min-spare: 100
- 
+
 # 日志配置
 logging:
   level:
@@ -75,7 +75,7 @@ spring:
   # 数据源
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/competition_db?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/competition_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
     username: root
     password: 13189240
 
