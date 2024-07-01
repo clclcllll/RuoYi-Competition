@@ -2,19 +2,38 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.ruoyi.system.mapper.ReviewMapper">
 
-    <insert id="insertReview" parameterType="com.ruoyi.system.domain.Review">
-        INSERT INTO reviews (submission_id, expert_id, score, comment, review_date)
-        VALUES (#{submissionId}, #{expertId}, #{score}, #{comment}, #{reviewDate})
-    </insert>
+    <resultMap id="BaseResultMap" type="com.ruoyi.system.domain.Review">
+        <id column="review_id" property="reviewId" jdbcType="INTEGER"/>
+        <result column="submission_id" property="submissionId" jdbcType="INTEGER"/>
+        <result column="expert_id" property="expertId" jdbcType="INTEGER"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="review_date" property="reviewDate" jdbcType="TIMESTAMP"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
 
-    <select id="selectAllReviews" resultType="com.ruoyi.system.domain.Review">
+    <select id="selectAllReviews" resultMap="BaseResultMap">
         SELECT * FROM reviews
     </select>
 
-    <select id="selectReviewsBySubmissionId" resultType="com.ruoyi.system.domain.Review">
+    <select id="selectReviewsBySubmissionId" parameterType="int" resultMap="BaseResultMap">
         SELECT * FROM reviews WHERE submission_id = #{submissionId}
     </select>
 
+    <insert id="insertReview" parameterType="com.ruoyi.system.domain.Review">
+        INSERT INTO reviews (submission_id, expert_id, score, comment, review_date, created_at, updated_at)
+        VALUES (#{submissionId}, #{expertId}, #{score}, #{comment}, #{reviewDate}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <update id="updateReview" parameterType="com.ruoyi.system.domain.Review">
+        UPDATE reviews SET submission_id = #{submissionId}, expert_id = #{expertId}, score = #{score}, comment = #{comment}, review_date = #{reviewDate}, updated_at = #{updatedAt} WHERE review_id = #{reviewId}
+    </update>
+
+    <delete id="deleteReviewById" parameterType="int">
+        DELETE FROM reviews WHERE review_id = #{reviewId}
+    </delete>
 </mapper>

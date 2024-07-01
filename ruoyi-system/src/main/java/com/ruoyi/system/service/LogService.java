@@ -9,19 +9,18 @@ import java.util.List;
 
 @Service
 public class LogService {
-
     @Autowired
     private LogMapper logMapper;
-
-    public int createLog(Log log) {
-        return logMapper.insertLog(log);
-    }
 
     public List<Log> getAllLogs() {
         return logMapper.selectAllLogs();
     }
 
-    public List<Log> getLogsByUserId(Integer userId) {
-        return logMapper.selectLogsByUserId(userId);
+    public boolean createLog(Log log) {
+        return logMapper.insertLog(log) > 0;
+    }
+
+    public boolean deleteLogById(int id) {
+        return logMapper.deleteLogById(id) > 0;
     }
 }

@@ -16,9 +16,13 @@ public class SubmissionController {
     private SubmissionService submissionService;
 
     @PostMapping
-    public ResponseEntity<Submission> createSubmission(@RequestBody Submission submission) {
-        submissionService.createSubmission(submission);
-        return ResponseEntity.ok(submission);
+    public ResponseEntity<?> createSubmission(@RequestBody Submission submission) {
+        boolean result = submissionService.createSubmission(submission);
+        if (result) {
+            return ResponseEntity.ok(new ApiResponse(200, "Submission created successfully", null));
+        } else {
+            return ResponseEntity.status(400).body(new ApiResponse(400, "Failed to create submission", null));
+        }
     }
 
     @GetMapping
@@ -26,8 +30,29 @@ public class SubmissionController {
         return ResponseEntity.ok(submissionService.getAllSubmissions());
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Submission>> getSubmissionsByUserId(@PathVariable Integer userId) {
-        return ResponseEntity.ok(submissionService.getSubmissionsByUserId(userId));
+    @GetMapping("/{id}")
+    public ResponseEntity<Submission> getSubmissionById(@PathVariable int id) {
+        return ResponseEntity.ok(submissionService.getSubmissionById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateSubmission(@PathVariable int id, @RequestBody Submission submission) {
+        submission.setSubmissionId(id);
+        boolean result = submissionService.updateSubmission(submission);
+        if (result) {
+            return ResponseEntity.ok(new ApiResponse(200, "Submission updated successfully", null));
+        } else {
+            return ResponseEntity.status(400).body(new ApiResponse(400, "Failed to update submission", null));
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteSubmission(@PathVariable int id) {
+        boolean result = submissionService.deleteSubmissionById(id);
+        if (result) {
+            return ResponseEntity.ok(new ApiResponse(200, "Submission deleted successfully", null));
+        } else {
+            return ResponseEntity.status(400).body(new ApiResponse(400, "Failed to delete submission", null));
+        }
     }
 }
