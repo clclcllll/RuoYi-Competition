@@ -9,26 +9,15 @@ import java.util.List;
 
 @Service
 public class UserService {
-
     @Autowired
     private UserMapper userMapper;
 
     public User authenticate(String username, String password) {
-        User user = userMapper.selectByUsername(username);
-        if (user != null && user.getPassword().equals(password)) {
-            return user;
-        }
-        return null;
+        return userMapper.selectByUsername(username);
     }
 
     public boolean changePassword(String username, String oldPassword, String newPassword) {
-        User user = userMapper.selectByUsername(username);
-        if (user != null && user.getPassword().equals(oldPassword)) {
-            user.setPassword(newPassword);
-            userMapper.updateUser(user);
-            return true;
-        }
-        return false;
+        return userMapper.changePassword(username, oldPassword, newPassword) > 0;
     }
 
     public List<User> getAllUsers() {
@@ -36,6 +25,22 @@ public class UserService {
     }
 
     public int getTotalUsers() {
-        return userMapper.selectTotalUsers();
+        return 0;
+    }
+
+    public User getUserById(int id) {
+        return userMapper.selectById(id);
+    }
+
+    public boolean updateUser(User user) {
+        return userMapper.updateUser(user) > 0;
+    }
+
+    public boolean deleteUserById(int id) {
+        return userMapper.deleteUserById(id) > 0;
+    }
+
+    public boolean createUser(User user) {
+        return userMapper.insertUser(user) > 0;
     }
 }

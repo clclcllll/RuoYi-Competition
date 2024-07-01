@@ -2,19 +2,41 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.ruoyi.system.mapper.SubmissionMapper">
 
-    <insert id="insertSubmission" parameterType="com.ruoyi.system.domain.Submission">
-        INSERT INTO submissions (submission_name, category, school, team, material_path, submission_date, user_id)
-        VALUES (#{submissionName}, #{category}, #{school}, #{team}, #{materialPath}, #{submissionDate}, #{userId})
-    </insert>
+    <resultMap id="BaseResultMap" type="com.ruoyi.system.domain.Submission">
+        <id column="submission_id" property="submissionId" jdbcType="INTEGER"/>
+        <result column="submission_name" property="submissionName" jdbcType="VARCHAR"/>
+        <result column="category" property="category" jdbcType="VARCHAR"/>
+        <result column="school" property="school" jdbcType="VARCHAR"/>
+        <result column="team" property="team" jdbcType="VARCHAR"/>
+        <result column="material_path" property="materialPath" jdbcType="VARCHAR"/>
+        <result column="submission_date" property="submissionDate" jdbcType="TIMESTAMP"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="competition_id" property="competitionId" jdbcType="INTEGER"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
 
-    <select id="selectAllSubmissions" resultType="com.ruoyi.system.domain.Submission">
+    <select id="selectAllSubmissions" resultMap="BaseResultMap">
         SELECT * FROM submissions
     </select>
 
-    <select id="selectSubmissionsByUserId" resultType="com.ruoyi.system.domain.Submission">
-        SELECT * FROM submissions WHERE user_id = #{userId}
+    <select id="selectSubmissionById" parameterType="int" resultMap="BaseResultMap">
+        SELECT * FROM submissions WHERE submission_id = #{submissionId}
     </select>
 
+    <insert id="insertSubmission" parameterType="com.ruoyi.system.domain.Submission">
+        INSERT INTO submissions (submission_name, category, school, team, material_path, submission_date, user_id, competition_id, created_at, updated_at)
+        VALUES (#{submissionName}, #{category}, #{school}, #{team}, #{materialPath}, #{submissionDate}, #{userId}, #{competitionId}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <update id="updateSubmission" parameterType="com.ruoyi.system.domain.Submission">
+        UPDATE submissions SET submission_name = #{submissionName}, category = #{category}, school = #{school}, team = #{team}, material_path = #{materialPath}, submission_date = #{submissionDate}, user_id = #{userId}, competition_id = #{competitionId}, updated_at = #{updatedAt} WHERE submission_id = #{submissionId}
+    </update>
+
+    <delete id="deleteSubmissionById" parameterType="int">
+        DELETE FROM submissions WHERE submission_id = #{submissionId}
+    </delete>
 </mapper>

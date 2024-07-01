@@ -1,16 +1,17 @@
 package com.ruoyi.system.mapper;
 
 import com.ruoyi.system.domain.User;
-import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
 @Mapper
 public interface UserMapper {
     User selectByUsername(String username);
+    int changePassword(String username, String oldPassword, String newPassword);
+    List<User> selectAllUsers();
     int insertUser(User user);
     int updateUser(User user);
-    User selectUserById(Integer userId);
-    List<User> selectAllUsers();
+    int deleteUserById(int userId);
 
-    int selectTotalUsers();
+    User selectById(int id);
 }

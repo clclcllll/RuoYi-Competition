@@ -64,5 +64,5 @@ class StatisticsResponse {
         this.totalReviews = totalReviews;
     }
 
-    // getters and setters
+    // Getters and setters
 }

@@ -2,28 +2,46 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.ruoyi.system.mapper.UserMapper">
 
-    <select id="selectByUsername" resultType="com.ruoyi.system.domain.User">
+    <resultMap id="BaseResultMap" type="com.ruoyi.system.domain.User">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="role" property="role" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="contact_info" property="contactInfo" jdbcType="VARCHAR"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="selectByUsername" parameterType="String" resultMap="BaseResultMap">
         SELECT * FROM users WHERE username = #{username}
     </select>
 
+    <update id="changePassword" parameterType="map">
+        UPDATE users SET password = #{newPassword} WHERE username = #{username} AND password = #{oldPassword}
+    </update>
+
+    <select id="selectAllUsers" resultMap="BaseResultMap">
+        SELECT * FROM users
+    </select>
+
     <insert id="insertUser" parameterType="com.ruoyi.system.domain.User">
-        INSERT INTO users (username, password, role, name, contact_info)
-        VALUES (#{username}, #{password}, #{role}, #{name}, #{contactInfo})
+        INSERT INTO users (username, password, role, name, contact_info, created_at, updated_at)
+        VALUES (#{username}, #{password}, #{role}, #{name}, #{contactInfo}, #{createdAt}, #{updatedAt})
     </insert>
 
     <update id="updateUser" parameterType="com.ruoyi.system.domain.User">
-        UPDATE users SET password = #{password}, role = #{role}, name = #{name}, contact_info = #{contactInfo}
-        WHERE user_id = #{userId}
+        UPDATE users SET username = #{username}, password = #{password}, role = #{role}, name = #{name}, contact_info = #{contactInfo}, updated_at = #{updatedAt} WHERE user_id = #{userId}
     </update>
 
-    <select id="selectUserById" resultType="com.ruoyi.system.domain.User">
+    <delete id="deleteUserById" parameterType="int">
+        DELETE FROM users WHERE user_id = #{userId}
+    </delete>
+    <select id="selectUserById" parameterType="int" resultMap="BaseResultMap">
         SELECT * FROM users WHERE user_id = #{userId}
-    </select>
-
-    <select id="selectAllUsers" resultType="com.ruoyi.system.domain.User">
-        SELECT * FROM users
     </select>
 
 </mapper>

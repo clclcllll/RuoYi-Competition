@@ -3,12 +3,15 @@ package com.ruoyi.system.domain;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
 public class Log {
-    private Integer logId;
-    private Integer userId;
+    private int logId;
+    private int userId;
     private String operation;
-    private Date operationDate;
+    private Timestamp operationDate;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 }

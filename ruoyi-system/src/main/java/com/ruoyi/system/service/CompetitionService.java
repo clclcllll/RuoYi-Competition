@@ -9,19 +9,26 @@ import java.util.List;
 
 @Service
 public class CompetitionService {
-
     @Autowired
     private CompetitionMapper competitionMapper;
-
-    public int createCompetition(Competition competition) {
-        return competitionMapper.insertCompetition(competition);
-    }
 
     public List<Competition> getAllCompetitions() {
         return competitionMapper.selectAllCompetitions();
     }
 
+    public boolean createCompetition(Competition competition) {
+        return competitionMapper.insertCompetition(competition) > 0;
+    }
+
+    public boolean updateCompetition(Competition competition) {
+        return competitionMapper.updateCompetition(competition) > 0;
+    }
+
+    public boolean deleteCompetitionById(int competitionId) {
+        return competitionMapper.deleteCompetitionById(competitionId) > 0;
+    }
+
     public int getTotalCompetitions() {
-        return competitionMapper.selectAllCompetitions().size();
+        return 0;
     }
 }

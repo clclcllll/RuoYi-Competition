@@ -1,12 +1,16 @@
 package com.ruoyi.system.mapper;
 
 import com.ruoyi.system.domain.Submission;
-import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
 
 @Mapper
 public interface SubmissionMapper {
-    int insertSubmission(Submission submission);
     List<Submission> selectAllSubmissions();
-    List<Submission> selectSubmissionsByUserId(Integer userId);
+    Submission selectSubmissionById(int submissionId);
+    int insertSubmission(Submission submission);
+    int updateSubmission(Submission submission);
+    int deleteSubmissionById(int submissionId);
+
+    List<Submission> selectSubmissionsByUserId(int userId);
 }

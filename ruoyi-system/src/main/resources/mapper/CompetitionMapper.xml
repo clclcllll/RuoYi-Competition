@@ -2,15 +2,32 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.ruoyi.system.mapper.CompetitionMapper">
 
-    <insert id="insertCompetition" parameterType="com.ruoyi.system.domain.Competition">
-        INSERT INTO competitions (competition_name, description, competition_date)
-        VALUES (#{competitionName}, #{description}, #{competitionDate})
-    </insert>
+    <resultMap id="BaseResultMap" type="com.ruoyi.system.domain.Competition">
+        <id column="competition_id" property="competitionId" jdbcType="INTEGER"/>
+        <result column="competition_name" property="competitionName" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="competition_date" property="competitionDate" jdbcType="DATE"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
 
-    <select id="selectAllCompetitions" resultType="com.ruoyi.system.domain.Competition">
+    <select id="selectAllCompetitions" resultMap="BaseResultMap">
         SELECT * FROM competitions
     </select>
 
+    <insert id="insertCompetition" parameterType="com.ruoyi.system.domain.Competition">
+        INSERT INTO competitions (competition_name, description, competition_date, created_at, updated_at)
+        VALUES (#{competitionName}, #{description}, #{competitionDate}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <update id="updateCompetition" parameterType="com.ruoyi.system.domain.Competition">
+        UPDATE competitions SET competition_name = #{competitionName}, description = #{description}, competition_date = #{competitionDate}, updated_at = #{updatedAt} WHERE competition_id = #{competitionId}
+    </update>
+
+    <delete id="deleteCompetitionById" parameterType="int">
+        DELETE FROM competitions WHERE competition_id = #{competitionId}
+    </delete>
 </mapper>

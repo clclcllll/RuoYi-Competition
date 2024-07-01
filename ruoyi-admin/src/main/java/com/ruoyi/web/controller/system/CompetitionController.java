@@ -16,13 +16,38 @@ public class CompetitionController {
     private CompetitionService competitionService;
 
     @PostMapping
-    public ResponseEntity<Competition> createCompetition(@RequestBody Competition competition) {
-        competitionService.createCompetition(competition);
-        return ResponseEntity.ok(competition);
+    public ResponseEntity<?> createCompetition(@RequestBody Competition competition) {
+        boolean result = competitionService.createCompetition(competition);
+        if (result) {
+            return ResponseEntity.ok(new ApiResponse(200, "Competition created successfully", null));
+        } else {
+            return ResponseEntity.status(400).body(new ApiResponse(400, "Failed to create competition", null));
+        }
     }
 
     @GetMapping
     public ResponseEntity<List<Competition>> getAllCompetitions() {
         return ResponseEntity.ok(competitionService.getAllCompetitions());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateCompetition(@PathVariable int id, @RequestBody Competition competition) {
+        competition.setCompetitionId(id);
+        boolean result = competitionService.updateCompetition(competition);
+        if (result) {
+            return ResponseEntity.ok(new ApiResponse(200, "Competition updated successfully", null));
+        } else {
+            return ResponseEntity.status(400).body(new ApiResponse(400, "Failed to update competition", null));
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCompetition(@PathVariable int id) {
+        boolean result = competitionService.deleteCompetitionById(id);
+        if (result) {
+            return ResponseEntity.ok(new ApiResponse(200, "Competition deleted successfully", null));
+        } else {
+            return ResponseEntity.status(400).body(new ApiResponse(400, "Failed to delete competition", null));
+        }
     }
 }

@@ -2,19 +2,28 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.ruoyi.system.mapper.LogMapper">
 
-    <insert id="insertLog" parameterType="com.ruoyi.system.domain.Log">
-        INSERT INTO logs (user_id, operation, operation_date)
-        VALUES (#{userId}, #{operation}, #{operationDate})
-    </insert>
+    <resultMap id="BaseResultMap" type="com.ruoyi.system.domain.Log">
+        <id column="log_id" property="logId" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="operation" property="operation" jdbcType="VARCHAR"/>
+        <result column="operation_date" property="operationDate" jdbcType="TIMESTAMP"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
 
-    <select id="selectAllLogs" resultType="com.ruoyi.system.domain.Log">
+    <select id="selectAllLogs" resultMap="BaseResultMap">
         SELECT * FROM logs
     </select>
 
-    <select id="selectLogsByUserId" resultType="com.ruoyi.system.domain.Log">
-        SELECT * FROM logs WHERE user_id = #{userId}
-    </select>
+    <insert id="insertLog" parameterType="com.ruoyi.system.domain.Log">
+        INSERT INTO logs (user_id, operation, operation_date, created_at, updated_at)
+        VALUES (#{userId}, #{operation}, #{operationDate}, #{createdAt}, #{updatedAt})
+    </insert>
 
+    <delete id="deleteLogById" parameterType="int">
+        DELETE FROM logs WHERE log_id = #{logId}
+    </delete>
 </mapper>
