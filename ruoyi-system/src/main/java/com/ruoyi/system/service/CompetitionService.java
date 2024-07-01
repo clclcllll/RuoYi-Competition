@@ -20,7 +20,7 @@ public class CompetitionService {
         return competitionMapper.insertCompetition(competition) > 0;
     }
 
-    public boolean updateCompetition(Competition competition) {
+    public boolean updateCompetition(int id, Competition competition) {
         return competitionMapper.updateCompetition(competition) > 0;
     }
 
@@ -31,4 +31,5 @@ public class CompetitionService {
     public int getTotalCompetitions() {
         return 0;
     }
+
 }

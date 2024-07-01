@@ -32,7 +32,7 @@ public class UserService {
         return userMapper.selectById(id);
     }
 
-    public boolean updateUser(User user) {
+    public boolean updateUser(int id, User user) {
         return userMapper.updateUser(user) > 0;
     }
 
@@ -42,5 +42,17 @@ public class UserService {
 
     public boolean createUser(User user) {
         return userMapper.insertUser(user) > 0;
+    }
+    //register
+    public boolean register(String username, String password, String role, String name, String contactInfo) {
+        return userMapper.register(username, password, role, name, contactInfo);
+    }
+
+    public List<User> getAllPendingRegistrations() {
+        return null;
+    }
+    //approve registration
+    public void approveRegistration(int userId) {
+        userMapper.approveRegistration(userId);
     }
 }

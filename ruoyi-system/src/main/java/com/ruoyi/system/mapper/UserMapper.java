@@ -14,4 +14,8 @@ public interface UserMapper {
     int deleteUserById(int userId);
 
     User selectById(int id);
+
+    boolean register(String username, String password, String role, String name, String contactInfo);
+
+    void approveRegistration(int userId);
 }

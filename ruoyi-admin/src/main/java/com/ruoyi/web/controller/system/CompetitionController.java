@@ -33,7 +33,7 @@ public class CompetitionController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateCompetition(@PathVariable int id, @RequestBody Competition competition) {
         competition.setCompetitionId(id);
-        boolean result = competitionService.updateCompetition(competition);
+        boolean result = competitionService.updateCompetition(id, competition);
         if (result) {
             return ResponseEntity.ok(new ApiResponse(200, "Competition updated successfully", null));
         } else {

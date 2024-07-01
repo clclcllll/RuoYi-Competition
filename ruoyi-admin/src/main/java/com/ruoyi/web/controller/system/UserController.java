@@ -44,7 +44,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(@PathVariable int id, @RequestBody User user) {
         user.setUserId(id);
-        boolean result = userService.updateUser(user);
+        boolean result = userService.updateUser(id, user);
         if (result) {
             return ResponseEntity.ok(new ApiResponse(200, "User updated successfully", null));
         } else {

@@ -39,4 +39,5 @@ public class SubmissionService {
     public boolean deleteSubmissionById(int id) {
         return submissionMapper.deleteSubmissionById(id) > 0;
     }
+
 }

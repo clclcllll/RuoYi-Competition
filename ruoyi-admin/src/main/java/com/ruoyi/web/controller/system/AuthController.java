@@ -34,8 +34,47 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(400, "Failed to change password", null));
         }
     }
-}
+    //
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
+        boolean result = userService.register(registerRequest.getUsername(), registerRequest.getPassword(), registerRequest.getRole(), registerRequest.getName(), registerRequest.getContactInfo());
+        if (result) {
+            return ResponseEntity.ok(new ApiResponse(200, "User registered successfully", null));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(400, "Failed to register user", null));
+        }
+    }
 
+}
+class RegisterRequest {
+    private String username;
+    private String password;
+    private String role;
+    private String name;
+    private String contactInfo;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getContactInfo() {
+        return contactInfo;
+    }
+
+    // Getters and setters
+}
 class LoginRequest {
     private String username;
     private String password;
